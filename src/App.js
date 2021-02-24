@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
+import Logger from './components/Logger';
 
-const App = () => {
+const App = ({ title }) => {
+  const [logger, setLogger] = useState([]);
   const [tasks, setTasks] = useState([
     {
         id: 1,
@@ -25,13 +27,17 @@ const App = () => {
   // Delete Task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id))
+    const tsk = tasks.find(element => element.id === id)
+    setLogger(logger.concat(dateTime() + " - Task " + tsk.text + " has been Deleted"))
   }
 
   // Toggle Task status
   const toggleTask = (id) => {
+    let tsk = {};
     setTasks(tasks.map((task) => task.id === id ? 
-    {...task, status: !task.status}
+    tsk = {...task, status: !task.status}
     : task))
+    setLogger(logger.concat(dateTime() + " - Task " + tsk.text + " marked as " + (tsk.status ? "Done" : "Undone")))
   }
 
   // Add task
@@ -46,8 +52,14 @@ const App = () => {
       status: false,
     }
     setTasks(tasks.concat(tsk))
+    setLogger(logger.concat(dateTime() + " - Task " + tsk.text + " Added"))
   }
-  
+  // Get dateTime
+  function dateTime() {
+    const timeElapsed = Date.now()
+    const today = new Date(timeElapsed)
+    return today.toDateString()
+  }
   return (
     <>
     <div className="container">
@@ -58,6 +70,9 @@ const App = () => {
       ) : (
         "No Tasks to show"
       )}
+    </div>
+    <div className="container">
+      <Logger onLog={logger}/>
     </div>
     </>
   );
