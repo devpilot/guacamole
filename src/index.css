@@ -6,6 +6,11 @@
   padding: 0;
 }
 
+@media (prefers-color-scheme: dark){
+  body {background: #1e1e1e !important; color: white !important;}
+  .task {background: #3c3c3c !important; color: white !important;}
+  
+}
 body {
   font-family: 'Poppins', sans-serif;
 }
