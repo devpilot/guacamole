@@ -1,9 +1,15 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { TASK_ADDED } from '../actionType';
 
-const AddTask = ({ onAdd }) => {
+const AddTask = () => {
     const input = useRef();
+    const dispatch = useDispatch();
     const onButtonClick = () => {
-        onAdd(input.current.value)
+        dispatch({
+            type: TASK_ADDED,
+            payload: {text: input.current.value}
+        });
         input.current.value = '';
     }
     return (
