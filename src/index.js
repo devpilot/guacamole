@@ -4,6 +4,7 @@ import { DBConfig } from './DBConfig';
 import { initDB } from 'react-indexed-db';
 import './index.css';
 import App from './App';
+import AuthProvider from './contexts/AuthContext';
 // import reportWebVitals from './reportWebVitals';
 
 import { Provider } from "react-redux";
@@ -14,7 +15,9 @@ initDB(DBConfig);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+    <AuthProvider>
     <App />
+    </AuthProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
