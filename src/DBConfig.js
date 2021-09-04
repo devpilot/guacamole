@@ -6,7 +6,7 @@ export const DBConfig = {
       store: 'people',
       storeConfig: { keyPath: 'id', autoIncrement: true },
       storeSchema: [
-        { name: 'name', keypath: 'name', options: { unique: false } },
+        { name: 'name', keypath: 'name', options: { unique: true } },
         { name: 'pass', keypath: 'pass', options: { unique: false } }
       ]
     },

@@ -1,19 +1,26 @@
-import React, { useContext, useState } from 'react';
-import { authContext } from "../contexts/AuthContext";
+import React, { useState } from 'react';
+import { useIndexedDB } from 'react-indexed-db';
 
 const SignUp = ({ history }) => {
   const [userName, setuserName] = useState();
   const [password, setPassword] = useState();
-  const { setAuthData } = useContext(authContext);
+  const { add } = useIndexedDB('people');
 
   const onFormSubmit = e => {
     e.preventDefault();
-    // fetch and check credentials
-    if (userName === 'admin' && password === 'test123') {
-      setAuthData(userName);
-      history.replace('/app');
+    // add credentials
+    if (userName && password ) {
+      add({ name: userName, pass: password }).then(
+        event => {
+          console.log('User Added: ', event);
+          history.replace('/signin');
+        },
+        error => {
+          console.log(error);
+        }
+      );      
     } else {
-      console.error('Incorrect credectials')
+      console.error('Empty credectials')
     }
   };
   return (
