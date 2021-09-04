@@ -9,7 +9,8 @@ export default function todoReducer(state = [], action) {
         ...state,
         {
           id: ++lastId,
-          text: action.payload.text,
+          title: action.payload.title,
+          desc: action.payload.desc,
           status: false
         }
       ];

@@ -13,7 +13,7 @@ const AddTask = () => {
     }
     dispatch({
       type: TASK_ADDED,
-      payload: { text: title.current.value }
+      payload: { title: title.current.value, desc: desc.current.value }
     });
     // Clear form
     title.current.value = '';
