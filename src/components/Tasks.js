@@ -1,20 +1,22 @@
 import Task from './Task';
 import { useDispatch, useSelector } from 'react-redux';
 import { TASK_REMOVED, TASK_TOGGLE, TASK_POPULATE } from "../actions/actionType";
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useIndexedDB } from 'react-indexed-db';
+import { authContext } from '../contexts/AuthContext';
+
 
 const Tasks = () => {
   const { getAll, update, deleteRecord } = useIndexedDB('task');
-
   const tasks = useSelector(state => state.todo);
+  const { auth } = useContext(authContext);
   const dispatch = useDispatch();
 
   // get todos from db and populate in state
   useEffect(() => {
     getAll().then(
       allTasks => {
-        const data = allTasks.filter(task => task.personId === 1)
+        const data = allTasks.filter(task => task.personId === auth.data)
         dispatch({
           type: TASK_POPULATE,
           payload: data
@@ -31,7 +33,7 @@ const Tasks = () => {
     let currentTask = tasks.filter(task => task.id === id )
     currentTask = currentTask[0]
     console.log(currentTask);
-    update({ ...currentTask, status: !currentTask.status, personId: 1 }).then(event => {
+    update({ ...currentTask, status: !currentTask.status, personId: auth.data }).then(event => {
       dispatch({
         type: TASK_TOGGLE,
         payload: { id: id }

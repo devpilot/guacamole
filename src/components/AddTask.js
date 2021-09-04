@@ -1,14 +1,15 @@
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 import { useIndexedDB } from 'react-indexed-db';
 import { useDispatch } from 'react-redux';
 import { TASK_ADDED } from '../actions/actionType';
+import { authContext } from '../contexts/AuthContext';
 
 const AddTask = () => {
   const title = useRef();
   const desc = useRef();
   const dispatch = useDispatch();
-
   const { add } = useIndexedDB('task');
+  const { auth } = useContext(authContext);
 
   // insert task to database and redux
   const onButtonClick = () => {
@@ -19,8 +20,7 @@ const AddTask = () => {
     const t = title.current.value;
     const d = desc.current.value;
 
-    //TODO: get personID from session and replace
-    add({ title: t, desc: d,  status: false, personId: 1 }).then(
+    add({ title: t, desc: d,  status: false, personId: auth.data }).then(
       event => {
         // inserted task id
         console.log('ID Generated: ', event);
