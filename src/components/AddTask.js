@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useIndexedDB } from 'react-indexed-db';
 import { useDispatch } from 'react-redux';
 import { TASK_ADDED } from '../actions/actionType';
 
@@ -6,15 +7,33 @@ const AddTask = () => {
   const title = useRef();
   const desc = useRef();
   const dispatch = useDispatch();
+
+  const { add } = useIndexedDB('task');
+
+  // insert task to database and redux
   const onButtonClick = () => {
     if (!title.current.value) {
       alert("please add title")
       return
     }
-    dispatch({
-      type: TASK_ADDED,
-      payload: { title: title.current.value, desc: desc.current.value }
-    });
+    const t = title.current.value;
+    const d = desc.current.value;
+
+    //TODO: get personID from session and replace
+    add({ title: t, desc: d,  status: false, personId: 1 }).then(
+      event => {
+        // inserted task id
+        console.log('ID Generated: ', event);
+        dispatch({
+          type: TASK_ADDED,
+          payload: { id: event, title: t, desc: d }
+        });
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
     // Clear form
     title.current.value = '';
     desc.current.value = '';
