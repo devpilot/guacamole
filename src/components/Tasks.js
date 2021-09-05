@@ -6,7 +6,7 @@ import { useIndexedDB } from 'react-indexed-db';
 import { authContext } from '../contexts/AuthContext';
 
 
-const Tasks = () => {
+const Tasks = ({ setIsEdit }) => {
   const { getAll, update, deleteRecord } = useIndexedDB('task');
   const tasks = useSelector(state => state.todo);
   const { auth } = useContext(authContext);
@@ -49,11 +49,19 @@ const Tasks = () => {
       });
     });
   };
+
+  const onEdit = id => {
+    let currentTask = tasks.filter(task => task.id === id )
+    currentTask = currentTask[0]
+    setIsEdit(currentTask);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
       {tasks.length > 0 ? (
         tasks.map(task => (
-          <Task key={task.id} task={task} onDelete={onDelete} onToggle={onToggle} />
+          <Task key={task.id} task={task} onDelete={onDelete} onToggle={onToggle} onEdit={onEdit} />
         ))
       ) : (
         "No Tasks to show"

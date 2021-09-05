@@ -18,6 +18,8 @@ export default function todoReducer(state = [], action) {
       return state.map((task) => task.id === action.payload.id ? { ...task, status: !task.status } : task);
     case actions.TASK_POPULATE:
       return state.todo = action.payload;
+    case actions.TASK_UPDATE:
+      return state.map((task) => task.id === action.payload.id ? { ...task, title: action.payload.title, desc: action.payload.desc } : task);
     default:
       return state;
   }
