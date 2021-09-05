@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useIndexedDB } from 'react-indexed-db';
 
 const SignUp = ({ history }) => {

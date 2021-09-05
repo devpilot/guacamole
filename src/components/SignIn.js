@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { authContext } from "../contexts/AuthContext";
 import { useIndexedDB } from 'react-indexed-db';
 
