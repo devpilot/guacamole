@@ -41,7 +41,7 @@ const SignUp = ({ history }) => {
                 setPassword(e.target.value);
               }}
             />
-            <button type="submit" className="btn btn-success" >
+            <button type="submit" className="btn btn-register" >
               Sign Up
               </button>
           </form>

@@ -59,6 +59,10 @@ body {
 .task h3:first-letter {
   text-transform: uppercase;
 }
+.task button {
+  padding: 2px;
+  margin: 3px;
+}
 .add-form {
   margin-bottom: 40px;
 }
@@ -119,6 +123,17 @@ body {
 .btn-block {
   display: block;
   width: 100%;
+}
+.btn-logout {
+  background: gray;
+  padding: 3px;
+  font-size: small;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.btn-register{
+  background: darkgoldenrod;
 }
 
 footer {

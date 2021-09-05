@@ -7,10 +7,10 @@ const Task = ({ task, onEdit, onDelete, onToggle }) => {
       <h3>{task.title}</h3>
       <p>{task.desc}</p>
       <button onClick={() => onEdit(task.id)}>Edit</button>
-      <span
+      <button
         onClick={() => onDelete(task.id)}
-        style={{ color: 'red' }}>X
-        </span>
+        style={{ color: 'red' }}>Delete
+        </button>
     </div>
   );
 }
