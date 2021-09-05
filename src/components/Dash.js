@@ -1,10 +1,11 @@
 import AddTask from './AddTask';
 import Tasks from './Tasks';
+import Header from './Header'
 
 const Dash = () => {
   return (
     <div className="container">
-      <h1 className="header">Todo App</h1>
+      <Header />
       <AddTask />
       <Tasks />
     </div>
