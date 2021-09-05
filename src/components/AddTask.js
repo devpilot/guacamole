@@ -41,6 +41,8 @@ const AddTask = () => {
     // Clear form
     titleRef.current.value = '';
     descRef.current.value = '';
+    setTitle('');
+    setDesc('');
   };
 
   // Update task to database and redux
@@ -70,6 +72,7 @@ const AddTask = () => {
     setIsEdit('');
     setTitle('');
     setDesc('');
+    
   };
 
   return (
