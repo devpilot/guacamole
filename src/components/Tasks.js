@@ -6,7 +6,7 @@ import { useIndexedDB } from 'react-indexed-db';
 import { authContext } from '../contexts/AuthContext';
 
 
-const Tasks = ({ setIsEdit }) => {
+const Tasks = ({ isEdit, setIsEdit, setTitle, setDesc }) => {
   const { getAll, update, deleteRecord } = useIndexedDB('task');
   const tasks = useSelector(state => state.todo);
   const { auth } = useContext(authContext);
@@ -42,18 +42,22 @@ const Tasks = ({ setIsEdit }) => {
   };
 
   const onDelete = id => {
-    deleteRecord(id).then(event => {
-      dispatch({
-        type: TASK_REMOVED,
-        payload: { id: id }
+    if (!isEdit) {
+      deleteRecord(id).then(event => {
+        dispatch({
+          type: TASK_REMOVED,
+          payload: { id: id }
+        });
       });
-    });
+    }
   };
 
   const onEdit = id => {
     let currentTask = tasks.filter(task => task.id === id )
     currentTask = currentTask[0]
     setIsEdit(currentTask);
+    setTitle(currentTask.title);
+    setDesc(currentTask.desc);
     window.scrollTo(0, 0);
   };
 
